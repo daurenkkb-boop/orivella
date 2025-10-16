@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORIVELLA — ювелирные украшения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f7f7f9;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #0f172a;
+      --accent: #e8c27f;
+      --accent-2: #c6a05a;
+      --ring: rgba(0,0,0,.06);
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius-xl: 20px;
+      --radius-2xl: 28px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif}
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1200px; margin:0 auto; padding:0 20px}
+
+    /* ===== Header ===== */
+    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(10px); background:rgba(255,255,255,.7); border-bottom:1px solid rgba(0,0,0,.05); z-index:50; transform:translateZ(0)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand-logo{width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:var(--shadow); display:grid; place-items:center; color:#fff; font-weight:700; position:relative; overflow:hidden}
+    .brand-logo::after{content:""; position:absolute; inset:-40% -40% auto auto; width:120%; height:120%; background:conic-gradient(from 0deg, rgba(255,255,255,.0), rgba(255,255,255,.65), rgba(255,255,255,0)); transform:rotate(0deg); animation:spin 5s linear infinite}
+    .brand-title{font-family:'Playfair Display', serif; letter-spacing:1px; font-size:22px}
+    .actions-right{display:flex; align-items:center; gap:8px}
+    .navlinks{display:flex; gap:18px}
+    .navlinks a{padding:8px 12px; border-radius:999px; transition:.25s ease; color:#111827}
+    .navlinks a:hover{background:#f0f0f3; transform:translateY(-1px)}
+    .cart-btn{position:relative; border:1px solid #e5e7eb; background:#fff; padding:8px 12px; border-radius:999px; cursor:pointer; box-shadow:var(--shadow); display:flex; align-items:center; gap:8px}
+    .cart-count{position:absolute; top:-6px; right:-6px; background:#111827; color:#fff; border-radius:999px; font-size:11px; padding:2px 6px}
+
+    /* ===== Hero ===== */
+    .hero{padding:64px 0 28px}
+    .hero-wrap{display:grid; grid-template-columns:1.15fr .85fr; gap:28px}
+    .hero-card{background:var(--card); border-radius:var(--radius-2xl); padding:36px; box-shadow:var(--shadow); position:relative; overflow:hidden}
+    .hero-card h1{font-family:'Playfair Display', serif; font-size:44px; line-height:1.1; margin:0 0 14px}
+    .hero-card p{color:var(--muted); font-size:16px; margin:0 0 22px}
+    .cta{display:flex; gap:12px}
+    .btn{position:relative; overflow:hidden; border:0; padding:12px 18px; border-radius:14px; background:#111827; color:#fff; font-weight:600; cursor:pointer; box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .25s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn-alt{background:var(--card); color:#111827; border:1px solid #e5e7eb}
+    .badge{display:inline-flex; align-items:center; gap:8px; background:#fff7ea; color:#7a5a16; border:1px solid #f4e2b8; padding:8px 12px; border-radius:999px; font-size:13px; margin-bottom:16px; animation:pop .5s ease}
+    .hero-image{background:var(--card); border-radius:var(--radius-2xl); box-shadow:var(--shadow); display:grid; place-items:center; padding:24px; position:relative; overflow:hidden}
+    .hero-image::after{content:""; position:absolute; inset:auto -60px -60px auto; width:240px; height:240px; background:radial-gradient(closest-side, #f5e6c2, transparent); filter:blur(18px)}
+    .hero-jewel{width:100%; max-width:520px; border-radius:18px; transform:translateZ(0)}
+    .hero-card::before{content:""; position:absolute; top:-60%; left:-20%; width:60%; height:220%; background:linear-gradient(120deg, rgba(255,255,255,.0) 0%, rgba(255,255,255,.45) 50%, rgba(255,255,255,.0) 100%); transform:rotate(12deg) translateX(-120%); animation:shine 7s ease-in-out infinite}
+
+    /* ===== Toolbar ===== */
+    .toolbar{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding:8px 0 18px}
+    .controls{display:flex; gap:10px; flex-wrap:wrap}
+    .input, select{padding:12px 14px; border-radius:12px; border:1px solid #e5e7eb; background:#fff; box-shadow:0 0 0 3px transparent; outline:none; transition:.2s}
+    .input:focus, select:focus{box-shadow:0 0 0 3px var(--ring)}
+    .chip{position:relative; overflow:hidden; padding:8px 12px; border-radius:999px; border:1px solid #e5e7eb; background:#fff; cursor:pointer; transition:.15s ease}
+    .chip:hover{transform:translateY(-1px)}
+    .chip.active{background:#111827; color:#fff; border-color:#111827}
+
+    /* ===== Grid ===== */
+    .grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:18px}
+    @media (max-width: 1100px){.hero-wrap{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3, 1fr)}}
+    @media (max-width: 800px){.grid{grid-template-columns:repeat(2, 1fr)}}
+    @media (max-width: 520px){.grid{grid-template-columns:1fr}}
+
+    .card{background:var(--card); border-radius:18px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; transform:translate3d(0,10px,0) scale(.98); opacity:0; transition:transform .5s cubic-bezier(.2,.8,.2,1), opacity .6s ease}
+    .card.reveal-visible{opacity:1; transform:translate3d(0,0,0) scale(1)}
+    .thumb{aspect-ratio:1/1; background:#f3f4f6; position:relative; perspective:800px}
+    .thumb img{width:100%; height:100%; object-fit:cover; transform:translateZ(0); transition:transform .4s ease}
+    .card:hover .thumb img{transform:scale(1.03)}
+    .thumb::after{content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 60%); transform:translateX(-120%); transition:transform .6s ease}
+    .card:hover .thumb::after{transform:translateX(120%)}
+    .mat-badge{position:absolute; top:10px; left:10px; font-size:12px; background:#fff; border:1px solid #e5e7eb; border-radius:999px; padding:6px 10px; box-shadow:var(--shadow); animation:float 4s ease-in-out infinite}
+    .content{padding:14px 14px 16px; display:flex; flex-direction:column; gap:8px}
+    .title{font-weight:600}
+    .price{font-weight:700}
+    .actions{display:flex; gap:8px; margin-top:6px}
+    .ghost{background:#fff; border:1px solid #e5e7eb; color:#111827}
+
+    /* ===== Footer ===== */
+    footer{margin:44px 0 64px; color:var(--muted); text-align:center}
+
+    /* ===== Floating Buttons ===== */
+    .to-top{position:fixed; right:20px; bottom:88px; padding:10px 12px; border-radius:999px; background:#fff; border:1px solid #e5e7eb; box-shadow:var(--shadow); cursor:pointer; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; z-index:55}
+    .to-top.visible{opacity:1; pointer-events:auto; transform:translateY(0)}
+    .fab{position:fixed; right:22px; bottom:22px; background:#111827; color:#fff; border:0; border-radius:999px; padding:14px 18px; box-shadow:var(--shadow); cursor:pointer; z-index:60; transition:transform .2s ease}
+    .fab:hover{transform:translateY(-2px)}
+
+    /* ===== Panels ===== */
+    .panel{position:fixed; top:0; right:0; width:420px; max-width:100%; height:100%; background:#fff; box-shadow:-20px 0 50px rgba(0,0,0,.15); transform:translateX(100%); transition:transform .35s ease; z-index:70; display:flex; flex-direction:column}
+    .panel.open{transform:translateX(0)}
+    .panel-header{display:flex; align-items:center; justify-content:space-between; padding:18px 18px; border-bottom:1px solid #eee}
+    .panel-title{font-weight:700}
+    .panel-body{padding:18px; overflow:auto}
+
+    /* Editor */
+    .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
+    .label{font-size:13px; color:#374151}
+    .row{display:flex; gap:10px}
+    .row .field{flex:1}
+    .divider{height:1px; background:#eee; margin:14px 0}
+    .mini-list{display:grid; gap:8px}
+    .mini-item{display:flex; gap:10px; align-items:center; padding:8px; border:1px solid #eee; border-radius:12px}
+    .mini-item img{width:44px; height:44px; object-fit:cover; border-radius:10px}
+    .mini-item .meta{flex:1}
+
+    /* Cart panel */
+    .panel.cart{left:auto; right:0}
+    .cart-item{display:flex; gap:10px; align-items:center; padding:8px; border:1px solid #eee; border-radius:12px; margin-bottom:10px}
+    .cart-item img{width:60px; height:60px; object-fit:cover; border-radius:10px}
+    .qty{display:flex; align-items:center; gap:6px}
+    .qty button{border:1px solid #e5e7eb; background:#fff; border-radius:8px; padding:4px 8px; cursor:pointer}
+    .cart-footer{display:flex; align-items:center; justify-content:space-between; gap:12px; position:sticky; bottom:0; background:#fff; padding-top:12px; border-top:1px solid #eee}
+
+    /* ===== Modal ===== */
+    .modal{position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; align-items:center; justify-content:center; padding:20px; z-index:80}
+    .modal.open{display:flex}
+    .modal-card{background:#fff; border-radius:18px; padding:18px; max-width:760px; width:100%; box-shadow:var(--shadow); transform:translateY(20px) scale(.98); opacity:0; animation:modalIn .35s ease forwards}
+
+    /* ===== Toast ===== */
+    .toast{position:fixed; left:50%; transform:translateX(-50%) translateY(20px); bottom:24px; background:#111827; color:#fff; padding:10px 14px; border-radius:12px; display:none; z-index:90; opacity:0}
+    .toast.show{display:block; animation:toastIn .25s ease forwards}
+
+    /* ===== Reveal on scroll ===== */
+    .reveal{opacity:0; transform:translate3d(0,16px,0); transition:opacity .6s ease, transform .6s ease}
+    .reveal.reveal-visible{opacity:1; transform:translate3d(0,0,0)}
+
+    /* ===== Keyframes ===== */
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes shine{0%{transform:rotate(12deg) translateX(-120%)} 100%{transform:rotate(12deg) translateX(220%)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    @keyframes pop{0%{transform:scale(.9); opacity:0} 100%{transform:scale(1); opacity:1}}
+    @keyframes modalIn{to{transform:translateY(0) scale(1); opacity:1}}
+    @keyframes toastIn{to{transform:translateX(-50%) translateY(0); opacity:1}}
+  </style>
+</head>
+<body>
+  <header class="reveal">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div class="brand-title">ORIVELLA</div>
+      </div>
+      <div class="actions-right">
+        <nav class="navlinks">
+          <a href="#catalog">Каталог</a>
+          <a href="#about">О нас</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+        <button class="cart-btn" id="cartBtn" aria-label="Открыть корзину" title="Корзина">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h15l-1.5 9h-12L5 3H2" stroke="#111827" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero reveal">
+      <div class="hero-wrap">
+        <div class="hero-card">
+          <div class="badge">Новая коллекция • Осень</div>
+          <h1>Украшения из <span style="background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent">золота</span> и <span style="background:linear-gradient(90deg,#c0c6d9,#a8b4d9); -webkit-background-clip:text; background-clip:text; color:transparent">серебра</span></h1>
+          <p>Современный минимализм, благородные металлы и безупречное исполнение. ORIVELLA — магазин, который хочется рекомендовать.</p>
+          <div class="cta">
+            <a class="btn" href="#catalog">Смотреть каталог</a>
+            <button class="btn btn-alt" id="openEditorBtn">Редактор товаров</button>
+          </div>
+        </div>
+        <div class="hero-image parallax">
+          <img class="hero-jewel" src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1200&auto=format&fit=crop" alt="ORIVELLA hero" />
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog" class="reveal">
+      <div class="toolbar">
+        <div class="controls">
+          <input id="search" class="input" type="search" placeholder="Поиск по названию…" />
+          <select id="filterMaterial">
+            <option value="all">Материал: все</option>
+            <option value="gold">Золото</option>
+            <option value="silver">Серебро</option>
+          </select>
+          <select id="sort">
+            <option value="new">Сначала новые</option>
+            <option value="priceAsc">Цена: по возрастанию</option>
+            <option value="priceDesc">Цена: по убыванию</option>
+          </select>
+        </div>
+        <div class="controls">
+          <button class="chip active" data-chip="all">Все</button>
+          <button class="chip" data-chip="gold">Золото</button>
+          <button class="chip" data-chip="silver">Серебро</button>
+        </div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <section id="about" style="margin-top:44px" class="reveal">
+      <div class="card" style="padding:20px 22px">
+        <h3 style="margin:6px 0 6px; font-family:'Playfair Display', serif; font-size:24px">О бренде ORIVELLA</h3>
+        <p style="color:var(--muted); max-width:900px">Мы создаём украшения, которые живут дольше трендов: утончённые формы, надёжные материалы, честная цена. Производим малыми партиями и контролируем качество каждого изделия.</p>
+      </div>
+    </section>
+
+    <section id="contacts" style="margin-top:18px" class="reveal">
+      <div class="card" style="padding:20px 22px">
+        <h3 style="margin:6px 0 6px; font-family:'Playfair Display', serif; font-size:24px">Контакты</h3>
+        <p style="color:var(--muted)">Email: hello@orivella.example • Instagram: @orivella • Телефон: +7 (700) 000‑00‑00</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container reveal">
+    © <span id="year"></span> ORIVELLA. Все права защищены.
+  </footer>
+
+  <!-- Floating buttons -->
+  <button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+  <button class="fab" id="fabEditor">Редактор</button>
+
+  <!-- Editor Panel -->
+  <aside class="panel" id="editor">
+    <div class="panel-header">
+      <div class="panel-title">Редактор товаров</div>
+      <button class="btn ghost" id="closeEditor">Закрыть</button>
+    </div>
+    <div class="panel-body">
+      <form id="productForm">
+        <input type="hidden" id="prodId" />
+        <div class="field">
+          <label class="label" for="prodName">Название</label>
+          <input class="input" id="prodName" required placeholder="Например, Кольцо Aurora" />
+        </div>
+        <div class="row">
+          <div class="field">
+            <label class="label" for="prodPrice">Цена, ₸</label>
+            <input class="input" id="prodPrice" type="number" min="0" step="1" required placeholder="99000" />
+          </div>
+          <div class="field">
+            <label class="label" for="prodMaterial">Материал</label>
+            <select class="input" id="prodMaterial">
+              <option value="gold">Золото</option>
+              <option value="silver">Серебро</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="prodDesc">Описание</label>
+          <textarea class="input" id="prodDesc" rows="3" placeholder="Короткое описание изделия"></textarea>
+        </div>
+        <div class="field">
+          <label class="label">Изображение</label>
+          <input class="input" id="prodImage" type="file" accept="image/*" />
+          <small style="color:var(--muted)">Загрузите фото (будет сохранено локально в вашем браузере)</small>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn" id="saveBtn">Сохранить</button>
+          <button type="button" class="btn ghost" id="resetBtn">Очистить форму</button>
+        </div>
+      </form>
+
+      <div class="divider"></div>
+
+      <div class="row" style="gap:8px">
+        <button class="btn ghost" id="exportBtn">Экспорт JSON</button>
+        <label class="btn ghost" for="importInput" style="cursor:pointer">Импорт JSON</label>
+        <input type="file" id="importInput" accept="application/json" style="display:none" />
+        <button class="btn ghost" id="seedBtn">Добавить примеры</button>
+        <button class="btn ghost" id="clearAllBtn" style="margin-left:auto; color:#b91c1c; border-color:#fecaca">Удалить всё</button>
+      </div>
+
+      <h4 style="margin:18px 0 10px">Товары</h4>
+      <div class="mini-list" id="miniList"></div>
+    </div>
+  </aside>
+
+  <!-- Cart Panel -->
+  <aside class="panel cart" id="cartPanel" aria-label="Корзина">
+    <div class="panel-header">
+      <div class="panel-title">Корзина</div>
+      <button class="btn ghost" id="closeCart">Закрыть</button>
+    </div>
+    <div class="panel-body">
+      <div id="cartList"></div>
+      <div class="cart-footer">
+        <div>
+          <div style="font-size:12px; color:var(--muted)">Итого</div>
+          <div id="cartSubtotal" class="price">0 ₸</div>
+        </div>
+        <div style="display:flex; gap:8px">
+          <button class="btn ghost" id="clearCartBtn" title="Очистить корзину">Очистить</button>
+          <a class="btn" id="checkoutBtn" href="#">Оформить</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="row" style="align-items:flex-start">
+        <div style="flex:1">
+          <img id="modalImg" src="" alt="" style="width:100%; border-radius:12px; background:#f3f4f6; aspect-ratio:1/1; object-fit:cover" />
+        </div>
+        <div style="flex:1; padding-left:14px">
+          <div class="mat-badge" id="modalMat"></div>
+          <h3 id="modalTitle" style="margin:10px 0 8px; font-family:'Playfair Display', serif; font-size:26px"></h3>
+          <div id="modalPrice" class="price" style="margin-bottom:10px"></div>
+          <p id="modalDesc" style="color:var(--muted)"></p>
+          <div class="actions" style="margin-top:14px">
+            <button class="btn" id="modalAddBtn">В корзину</button>
+            <button class="btn ghost" id="modalClose">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const chips = document.querySelectorAll('.chip');
+    const search = document.getElementById('search');
+    const filterMaterial = document.getElementById('filterMaterial');
+    const sortSel = document.getElementById('sort');
+
+    // --- Admin mode ---
+    const ADMIN_MODE = new URLSearchParams(location.search).has('admin') || localStorage.getItem('orivella_admin')==='1';
+
+    const editor = document.getElementById('editor');
+    const openEditorBtn = document.getElementById('openEditorBtn');
+    const fabEditor = document.getElementById('fabEditor');
+    const closeEditor = document.getElementById('closeEditor');
+
+    const cartBtn = document.getElementById('cartBtn');
+    const cartPanel = document.getElementById('cartPanel');
+    const closeCart = document.getElementById('closeCart');
+    const cartList = document.getElementById('cartList');
+    const cartCount = document.getElementById('cartCount');
+    const cartSubtotal = document.getElementById('cartSubtotal');
+    const clearCartBtn = document.getElementById('clearCartBtn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    const form = document.getElementById('productForm');
+    const prodId = document.getElementById('prodId');
+    const prodName = document.getElementById('prodName');
+    const prodPrice = document.getElementById('prodPrice');
+    const prodMaterial = document.getElementById('prodMaterial');
+    const prodDesc = document.getElementById('prodDesc');
+    const prodImage = document.getElementById('prodImage');
+
+    const miniList = document.getElementById('miniList');
+
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalMat = document.getElementById('modalMat');
+    const modalClose = document.getElementById('modalClose');
+    const modalAddBtn = document.getElementById('modalAddBtn');
+
+    const exportBtn = document.getElementById('exportBtn');
+    const importInput = document.getElementById('importInput');
+    const seedBtn = document.getElementById('seedBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+
+    const toast = document.getElementById('toast');
+    const toTop = document.getElementById('toTop');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const KEY = 'orivella_products_v1';
+    const CART_KEY = 'orivella_cart_v1';
+
+    // Скрываем UI редактора для посетителей
+    if(!ADMIN_MODE){
+      openEditorBtn?.style.setProperty('display','none');
+      fabEditor?.style.setProperty('display','none');
+      editor?.style.setProperty('display','none');
+    }
+
+    function showToast(msg){
+      toast.textContent = msg; toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1600);
+    }
+
+    // ===== Products API (localStorage) =====
+    function loadProducts(){
+      try{ return JSON.parse(localStorage.getItem(KEY)) || []; }catch{ return [] }
+    }
+    function saveProducts(list){ localStorage.setItem(KEY, JSON.stringify(list)); }
+    function money(n){ return new Intl.NumberFormat('ru-RU', {style:'currency', currency:'KZT', maximumFractionDigits:0}).format(n) }
+
+    // ===== Cart API =====
+    function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY))||[] }catch{ return [] } }
+    function saveCart(list){ localStorage.setItem(CART_KEY, JSON.stringify(list)); }
+    function cartTotals(){
+      const items = loadCart();
+      const count = items.reduce((s,i)=>s+i.qty,0);
+      const sum = items.reduce((s,i)=>s+i.price*i.qty,0);
+      return {count, sum}
+    }
+    function updateCartBadge(){
+      const {count, sum} = cartTotals();
+      cartCount.textContent = count;
+      cartSubtotal.textContent = money(sum);
+    }
+    function addToCart(product, qty=1){
+      const items = loadCart();
+      const idx = items.findIndex(i=>i.id===product.id);
+      if(idx>-1){ items[idx].qty += qty; } else {
+        items.push({ id: product.id, name: product.name, price: product.price, image: product.image, material: product.material, qty });
+      }
+      saveCart(items); updateCartBadge(); renderCart();
+      showToast('Добавлено в корзину');
+    }
+    function changeQty(id, delta){
+      const items = loadCart();
+      const idx = items.findIndex(i=>i.id===id); if(idx===-1) return;
+      items[idx].qty += delta; if(items[idx].qty<1) items[idx].qty=1;
+      saveCart(items); updateCartBadge(); renderCart();
+    }
+    function removeFromCart(id){
+      const items = loadCart().filter(i=>i.id!==id); saveCart(items); updateCartBadge(); renderCart();
+    }
+    function clearCart(){ saveCart([]); updateCartBadge(); renderCart(); }
+
+    function CartItem(i){
+      const img = i.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      return `<div class="cart-item">
+        <img src="${img}" alt="${escapeHtml(i.name)}"/>
+        <div style="flex:1">
+          <div style="font-weight:600">${escapeHtml(i.name)}</div>
+          <div style="font-size:12px; color:var(--muted)">${i.material==='gold'?'Золото':'Серебро'}</div>
+          <div class="qty" style="margin-top:6px">
+            <button data-dec="${i.id}">−</button>
+            <span>${i.qty}</span>
+            <button data-inc="${i.id}">+</button>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="price">${money(i.price*i.qty)}</div>
+          <button class="btn ghost" style="margin-top:6px" data-remove="${i.id}">Убрать</button>
+        </div>
+      </div>`
+    }
+
+    function renderCart(){
+      const items = loadCart();
+      cartList.innerHTML = items.length ? items.map(CartItem).join('') : `<div style="color:var(--muted)">Корзина пуста</div>`;
+      // Bind
+      cartList.querySelectorAll('[data-inc]')?.forEach(b=>b.onclick=()=>changeQty(b.dataset.inc, +1));
+      cartList.querySelectorAll('[data-dec]')?.forEach(b=>b.onclick=()=>changeQty(b.dataset.dec, -1));
+      cartList.querySelectorAll('[data-remove]')?.forEach(b=>b.onclick=()=>removeFromCart(b.dataset.remove));
+      // Update badge/subtotal
+      updateCartBadge();
+      // Update checkout link (WhatsApp пример)
+      const orderText = items.map(i=>`${i.name} × ${i.qty} = ${money(i.price*i.qty)}`).join('%0A');
+      const total = money(items.reduce((s,i)=>s+i.price*i.qty,0));
+      const msg = encodeURIComponent(`Здравствуйте! Хочу оформить заказ:%0A${orderText}%0AИтого: ${total}`);
+      checkoutBtn.href = `https://wa.me/77000000000?text=${msg}`;
+    }
+
+    function openCart(show){ cartPanel.classList[show?'add':'remove']('open'); }
+
+    // ===== Render =====
+    function renderProducts(){
+      const q = search.value.trim().toLowerCase();
+      const mat = (filterMaterial.value || 'all');
+      const chipActive = document.querySelector('.chip.active')?.dataset.chip || 'all';
+      const sort = sortSel.value;
+
+      let items = loadProducts();
+      if(chipActive !== 'all') items = items.filter(p=>p.material===chipActive);
+      if(mat !== 'all') items = items.filter(p=>p.material===mat);
+      if(q) items = items.filter(p=>p.name.toLowerCase().includes(q));
+      if(sort==='priceAsc') items.sort((a,b)=>a.price-b.price);
+      else if(sort==='priceDesc') items.sort((a,b)=>b.price-a.price);
+      else items.sort((a,b)=>b.createdAt - a.createdAt);
+
+      grid.innerHTML = items.map(p=>Card(p)).join('') || EmptyState();
+
+      // bind quick view buttons
+      document.querySelectorAll('[data-qv]')?.forEach(btn=>btn.addEventListener('click', () => openQuickView(btn.dataset.qv)));
+
+      // bind add-to-cart on cards
+      document.querySelectorAll('[data-add]')?.forEach(btn=>btn.addEventListener('click', () => addToCartById(btn.dataset.add)));
+
+      // refresh mini list — только для админа
+      if(ADMIN_MODE){
+        miniList.innerHTML = items.map(p=>MiniItem(p)).join('');
+        bindMiniActions();
+      }
+
+      // reveal for cards
+      grid.querySelectorAll('.card').forEach(el=>observer.observe(el));
+      attachTiltCards();
+      attachRipples();
+    }
+
+    function EmptyState(){
+      return `<div class="card reveal-visible" style="grid-column:1/-1; padding:22px; text-align:center">
+        <h3 style="margin:6px 0 8px">Здесь пока пусто</h3>
+        <p style="color:var(--muted); margin:0 0 10px">Добавьте первые товары через «Редактор товаров»</p>
+        ${ADMIN_MODE ? `<button class="btn" id="quickAdd">Добавить пример</button>` : ``}
+      </div>`
+    }
+
+    function Card(p){
+      const badge = p.material==='gold' ? 'Золото' : 'Серебро';
+      const img = p.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      return `<div class="card">
+        <div class="thumb tilt">
+          <img src="${img}" alt="${escapeHtml(p.name)}"/>
+          <div class="mat-badge">${badge}</div>
+        </div>
+        <div class="content">
+          <div class="title">${escapeHtml(p.name)}</div>
+          <div class="price">${money(p.price)}</div>
+          <div class="actions">
+            <button class="btn" data-add="${p.id}">В корзину</button>
+            <button class="btn ghost" data-qv="${p.id}">Быстрый просмотр</button>
+            ${ADMIN_MODE ? `<button class="btn ghost" data-edit="${p.id}">Редактировать</button>` : ``}
+          </div>
+        </div>
+      </div>`
+    }
+
+    function MiniItem(p){
+      const img = p.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      return `<div class="mini-item" data-id="${p.id}">
+        <img src="${img}" alt="${escapeHtml(p.name)}"/>
+        <div class="meta">
+          <div style="font-weight:600">${escapeHtml(p.name)}</div>
+          <div style="font-size:12px; color:var(--muted)">${p.material==='gold'?'Золото':'Серебро'} • ${money(p.price)}</div>
+        </div>
+        <button class="btn ghost" data-mini-edit="${p.id}">Изм.</button>
+        <button class="btn ghost" data-mini-del="${p.id}" style="color:#b91c1c; border-color:#fecaca">Удалить</button>
+      </div>`
+    }
+
+    function bindMiniActions(){
+      document.querySelectorAll('[data-mini-edit]')?.forEach(b=>b.onclick=()=>fillForm(b.dataset.miniEdit));
+      document.querySelectorAll('[data-mini-del]')?.forEach(b=>b.onclick=()=>delProduct(b.dataset.miniDel));
+      document.querySelectorAll('[data-edit]')?.forEach(b=>b.onclick=()=>fillForm(b.dataset.edit));
+      const quickAdd = document.getElementById('quickAdd');
+      if(quickAdd){ quickAdd.onclick = seedExamples }
+    }
+
+    function openQuickView(id){
+      const item = loadProducts().find(x=>x.id===id); if(!item) return;
+      modal.dataset.id = item.id;
+      modalImg.src = item.image || '';
+      modalTitle.textContent = item.name;
+      modalPrice.textContent = money(item.price);
+      modalDesc.textContent = item.description || '';
+      modalMat.textContent = item.material==='gold'?'Золото':'Серебро';
+      modal.classList.add('open');
+    }
+
+    modal.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open') });
+    modalClose.addEventListener('click', ()=>modal.classList.remove('open'));
+    modalAddBtn.addEventListener('click', ()=>{ const id = modal.dataset.id; if(id) addToCartById(id); modal.classList.remove('open'); });
+
+    function addToCartById(id){
+      const p = loadProducts().find(x=>x.id===id); if(!p){ showToast('Товар не найден'); return; }
+      addToCart(p, 1);
+    }
+
+    // ===== Helpers =====
+    function escapeHtml(str=''){
+      return str.replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[s]))
+    }
+
+    // Editor open/close only for admin
+    function toggleEditor(show){ if(!ADMIN_MODE) return; editor.classList[show?'add':'remove']('open') }
+    if(ADMIN_MODE){
+      openEditorBtn?.addEventListener('click',()=>toggleEditor(true));
+      fabEditor?.addEventListener('click',()=>toggleEditor(true));
+      closeEditor?.addEventListener('click',()=>toggleEditor(false));
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const id = prodId.value || crypto.randomUUID();
+      const file = prodImage.files?.[0];
+      let imageData = null;
+      if(file){ imageData = await readFileAsDataURL(file) }
+      const payload = {
+        id,
+        name: prodName.value.trim(),
+        price: Number(prodPrice.value||0),
+        material: prodMaterial.value,
+        description: prodDesc.value.trim(),
+        image: imageData || (loadProducts().find(p=>p.id===id)?.image || null),
+        createdAt: loadProducts().find(p=>p.id===id)?.createdAt || Date.now()
+      };
+      const items = loadProducts();
+      const idx = items.findIndex(p=>p.id===id);
+      if(idx>-1) items[idx]=payload; else items.push(payload);
+      saveProducts(items);
+      showToast('Товар сохранён');
+      confetti(8);
+      form.reset(); prodId.value=''; prodMaterial.value='gold';
+      renderProducts();
+    });
+
+    function fillForm(id){
+      const item = loadProducts().find(x=>x.id===id); if(!item) return;
+      prodId.value = item.id; prodName.value=item.name; prodPrice.value=item.price; prodMaterial.value=item.material; prodDesc.value=item.description||'';
+      toggleEditor(true);
+      showToast('Данные товара загружены в форму');
+    }
+
+    function delProduct(id){
+      if(!confirm('Удалить товар?')) return;
+      const items = loadProducts().filter(p=>p.id!==id); saveProducts(items); renderProducts(); showToast('Удалено');
+    }
+
+    function readFileAsDataURL(file){
+      return new Promise((res, rej)=>{ const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(file) })
+    }
+
+    // ===== Filters =====
+    chips.forEach(ch=>ch.addEventListener('click',()=>{
+      chips.forEach(x=>x.classList.remove('active')); ch.classList.add('active'); renderProducts();
+    }));
+    search.addEventListener('input', renderProducts);
+    filterMaterial.addEventListener('change', renderProducts);
+    sortSel.addEventListener('change', renderProducts);
+
+    // ===== Export / Import / Seed / Clear (admin only) =====
+    if(ADMIN_MODE){
+      exportBtn.addEventListener('click', ()=>{
+        const data = JSON.stringify(loadProducts(), null, 2);
+        const blob = new Blob([data], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href=url; a.download='orivella-products.json'; a.click(); URL.revokeObjectURL(url);
+        showToast('Файл экспортирован');
+      });
+      importInput.addEventListener('change', async ()=>{
+        const file = importInput.files?.[0]; if(!file) return;
+        const text = await file.text();
+        try{ const data = JSON.parse(text); if(Array.isArray(data)){ saveProducts(data); renderProducts(); showToast('Импорт успешно'); } else throw new Error('bad') }
+        catch{ alert('Неверный формат файла'); }
+        importInput.value='';
+      });
+      seedBtn.addEventListener('click', seedExamples);
+      clearAllBtn.addEventListener('click', ()=>{
+        if(!confirm('Удалить все товары?')) return;
+        localStorage.removeItem(KEY); renderProducts(); showToast('Список очищен');
+      });
+    }
+
+    function seedExamples(){
+      const demo = [
+        {id:crypto.randomUUID(), name:'Кольцо Aurora', price:129000, material:'gold', description:'Золото 585, матовая поверхность', image:'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-3e5},
+        {id:crypto.randomUUID(), name:'Серьги Halo', price:99000, material:'silver', description:'Серебро 925, покрытие родием', image:'https://images.unsplash.com/photo-1617038260897-3babb5a78775?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-2e5},
+        {id:crypto.randomUUID(), name:'Браслет Étoile', price:159000, material:'gold', description:'Ажурный браслет, золото 585', image:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-1e5},
+        {id:crypto.randomUUID(), name:'Кулон Lune', price:79000, material:'silver', description:'Серебро 925, минималистичный диск', image:'https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-5e4}
+      ];
+      const current = loadProducts();
+      saveProducts(demo.concat(current));
+      renderProducts();
+      showToast('Добавлены примерные товары');
+      confetti(12);
+    }
+
+    // ===== Reveal on scroll (IntersectionObserver) =====
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('reveal-visible'); observer.unobserve(e.target); } })
+    }, {threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // ===== Tilt effect for cards =====
+    function attachTiltCards(){
+      document.querySelectorAll('.tilt').forEach(el=>{
+        el.onmousemove = (e)=>{
+          const r = el.getBoundingClientRect();
+          const x = (e.clientX - r.left)/r.width - .5;
+          const y = (e.clientY - r.top)/r.height - .5;
+          el.style.transform = `rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg)`;
+        };
+        el.onmouseleave = ()=>{ el.style.transform='rotateX(0) rotateY(0)'; };
+      });
+    }
+
+    // ===== Button & chip ripple =====
+    function attachRipples(){
+      const rippleTargets = [...document.querySelectorAll('.btn'), ...document.querySelectorAll('.chip')];
+      rippleTargets.forEach(el=>{
+        el.addEventListener('click', (e)=>{
+          const rect = el.getBoundingClientRect();
+          const d = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - d/2;
+          const y = e.clientY - rect.top - d/2;
+          const wave = document.createElement('span');
+          wave.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${d}px; height:${d}px; border-radius:50%; background:rgba(255,255,255,.35); transform:scale(0); pointer-events:none; mix-blend-mode:overlay;`;
+          el.style.position='relative';
+          el.style.overflow='hidden';
+          el.appendChild(wave);
+          wave.animate([{transform:'scale(0)', opacity:.6},{transform:'scale(2.2)', opacity:0}],{duration:500, easing:'ease-out'}).onfinish=()=>wave.remove();
+        });
+      });
+    }
+
+    // ===== Parallax hero image & toTop =====
+    const parallax = document.querySelector('.parallax');
+    window.addEventListener('scroll', ()=>{
+      const y = Math.min(30, window.scrollY/20);
+      parallax?.style.setProperty('transform', `translateY(${y}px)`);
+      if(window.scrollY>260) toTop.classList.add('visible'); else toTop.classList.remove('visible');
+    });
+    toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+    // ===== Simple confetti =====
+    function confetti(n=10){
+      for(let i=0;i<n;i++){
+        const p = document.createElement('div');
+        p.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:-10px; width:6px; height:10px; background:hsl(${40+Math.random()*30} 70% 60%); border-radius:2px; transform:rotate(${Math.random()*180}deg); z-index:120;`;
+        document.body.appendChild(p);
+        const fall = p.animate([{transform:p.style.transform, top:'-10px', opacity:1},{transform:p.style.transform, top:'110vh', opacity:0}], {duration: 1000+Math.random()*1200, easing:'cubic-bezier(.2,.8,.2,1)'});
+        fall.onfinish = ()=>p.remove();
+      }
+    }
+
+    // ===== Cart open/close =====
+    cartBtn.addEventListener('click', ()=>openCart(true));
+    closeCart.addEventListener('click', ()=>openCart(false));
+
+    // ===== First render =====
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
