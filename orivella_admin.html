@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORIVELLA — ювелирные украшения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f7f7f9;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --text: #0f172a;
+      --accent: #e8c27f;
+      --accent-2: #c6a05a;
+      --ring: rgba(0,0,0,.06);
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius-xl: 20px;
+      --radius-2xl: 28px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif}
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1200px; margin:0 auto; padding:0 20px}
+
+    /* Header */
+    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(10px); background:rgba(255,255,255,.7); border-bottom:1px solid rgba(0,0,0,.05); z-index:50}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand-logo{width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:var(--shadow); display:grid; place-items:center; color:#fff; font-weight:700}
+    .brand-title{font-family:'Playfair Display', serif; letter-spacing:1px; font-size:22px}
+    .navlinks{display:flex; gap:18px}
+    .navlinks a{padding:8px 12px; border-radius:999px; transition:.25s ease; color:#111827}
+    .navlinks a:hover{background:#f0f0f3}
+
+    /* Hero */
+    .hero{padding:64px 0 28px}
+    .hero-wrap{display:grid; grid-template-columns:1.15fr .85fr; gap:28px}
+    .hero-card{background:var(--card); border-radius:var(--radius-2xl); padding:36px; box-shadow:var(--shadow); position:relative; overflow:hidden}
+    .hero-card h1{font-family:'Playfair Display', serif; font-size:44px; line-height:1.1; margin:0 0 14px}
+    .hero-card p{color:var(--muted); font-size:16px; margin:0 0 22px}
+    .cta{display:flex; gap:12px}
+    .btn{border:0; padding:12px 18px; border-radius:14px; background:#111827; color:#fff; font-weight:600; cursor:pointer; box-shadow:var(--shadow); transition:transform .08s ease, box-shadow .25s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-alt{background:var(--card); color:#111827; border:1px solid #e5e7eb}
+    .badge{display:inline-flex; align-items:center; gap:8px; background:#fff7ea; color:#7a5a16; border:1px solid #f4e2b8; padding:8px 12px; border-radius:999px; font-size:13px; margin-bottom:16px}
+    .hero-image{background:var(--card); border-radius:var(--radius-2xl); box-shadow:var(--shadow); display:grid; place-items:center; padding:24px; position:relative; overflow:hidden}
+    .hero-image::after{content:""; position:absolute; inset:auto -60px -60px auto; width:240px; height:240px; background:radial-gradient(closest-side, #f5e6c2, transparent); filter:blur(18px)}
+    .hero-jewel{width:100%; max-width:520px; border-radius:18px}
+
+    /* Filters */
+    .toolbar{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding:8px 0 18px}
+    .controls{display:flex; gap:10px; flex-wrap:wrap}
+    .input, select{padding:12px 14px; border-radius:12px; border:1px solid #e5e7eb; background:#fff; box-shadow:0 0 0 3px transparent; outline:none; transition:.2s}
+    .input:focus, select:focus{box-shadow:0 0 0 3px var(--ring)}
+    .chip{padding:8px 12px; border-radius:999px; border:1px solid #e5e7eb; background:#fff; cursor:pointer}
+    .chip.active{background:#111827; color:#fff; border-color:#111827}
+
+    /* Grid */
+    .grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:18px}
+    @media (max-width: 1100px){.hero-wrap{grid-template-columns:1fr}.grid{grid-template-columns:repeat(3, 1fr)}}
+    @media (max-width: 800px){.grid{grid-template-columns:repeat(2, 1fr)}}
+    @media (max-width: 520px){.grid{grid-template-columns:1fr}}
+
+    .card{background:var(--card); border-radius:18px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
+    .thumb{aspect-ratio:1/1; background:#f3f4f6; position:relative}
+    .thumb img{width:100%; height:100%; object-fit:cover}
+    .mat-badge{position:absolute; top:10px; left:10px; font-size:12px; background:#fff; border:1px solid #e5e7eb; border-radius:999px; padding:6px 10px}
+    .content{padding:14px 14px 16px; display:flex; flex-direction:column; gap:8px}
+    .title{font-weight:600}
+    .price{font-weight:700}
+    .actions{display:flex; gap:8px; margin-top:6px}
+    .ghost{background:#fff; border:1px solid #e5e7eb; color:#111827}
+
+    /* Footer */
+    footer{margin:44px 0 64px; color:var(--muted); text-align:center}
+
+    /* Floating Editor Button */
+    .fab{position:fixed; right:22px; bottom:22px; background:#111827; color:#fff; border:0; border-radius:999px; padding:14px 18px; box-shadow:var(--shadow); cursor:pointer; z-index:60}
+
+    /* Editor Panel */
+    .panel{position:fixed; top:0; right:0; width:420px; max-width:100%; height:100%; background:#fff; box-shadow:-20px 0 50px rgba(0,0,0,.15); transform:translateX(100%); transition:transform .35s ease; z-index:70; display:flex; flex-direction:column}
+    .panel.open{transform:translateX(0)}
+    .panel-header{display:flex; align-items:center; justify-content:space-between; padding:18px 18px; border-bottom:1px solid #eee}
+    .panel-title{font-weight:700}
+    .panel-body{padding:18px; overflow:auto}
+    .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
+    .label{font-size:13px; color:#374151}
+    .row{display:flex; gap:10px}
+    .row .field{flex:1}
+    .divider{height:1px; background:#eee; margin:14px 0}
+    .mini-list{display:grid; gap:8px}
+    .mini-item{display:flex; gap:10px; align-items:center; padding:8px; border:1px solid #eee; border-radius:12px}
+    .mini-item img{width:44px; height:44px; object-fit:cover; border-radius:10px}
+    .mini-item .meta{flex:1}
+
+    /* Modal */
+    .modal{position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; align-items:center; justify-content:center; padding:20px; z-index:80}
+    .modal.open{display:flex}
+    .modal-card{background:#fff; border-radius:18px; padding:18px; max-width:760px; width:100%; box-shadow:var(--shadow)}
+
+    /* Toast */
+    .toast{position:fixed; left:50%; transform:translateX(-50%); bottom:24px; background:#111827; color:#fff; padding:10px 14px; border-radius:12px; display:none; z-index:90}
+    .toast.show{display:block}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-logo">O</div>
+        <div class="brand-title">ORIVELLA</div>
+      </div>
+      <nav class="navlinks">
+        <a href="#catalog">Каталог</a>
+        <a href="#about">О нас</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-wrap">
+        <div class="hero-card">
+          <div class="badge">Новая коллекция • Осень</div>
+          <h1>Украшения из <span style="background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent">золота</span> и <span style="background:linear-gradient(90deg,#c0c6d9,#a8b4d9); -webkit-background-clip:text; background-clip:text; color:transparent">серебра</span></h1>
+          <p>Современный минимализм, благородные металлы и безупречное исполнение. ORIVELLA — магазин, который хочется рекомендовать.</p>
+          <div class="cta">
+            <a class="btn" href="#catalog">Смотреть каталог</a>
+            <button class="btn btn-alt" id="openEditorBtn">Редактор товаров</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img class="hero-jewel" src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1200&auto=format&fit=crop" alt="ORIVELLA hero" />
+        </div>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <div class="toolbar">
+        <div class="controls">
+          <input id="search" class="input" type="search" placeholder="Поиск по названию…" />
+          <select id="filterMaterial">
+            <option value="all">Материал: все</option>
+            <option value="gold">Золото</option>
+            <option value="silver">Серебро</option>
+          </select>
+          <select id="sort">
+            <option value="new">Сначала новые</option>
+            <option value="priceAsc">Цена: по возрастанию</option>
+            <option value="priceDesc">Цена: по убыванию</option>
+          </select>
+        </div>
+        <div class="controls">
+          <button class="chip active" data-chip="all">Все</button>
+          <button class="chip" data-chip="gold">Золото</button>
+          <button class="chip" data-chip="silver">Серебро</button>
+        </div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <section id="about" style="margin-top:44px">
+      <div class="card" style="padding:20px 22px">
+        <h3 style="margin:6px 0 6px; font-family:'Playfair Display', serif; font-size:24px">О бренде ORIVELLA</h3>
+        <p style="color:var(--muted); max-width:900px">Мы создаём украшения, которые живут дольше трендов: утончённые формы, надёжные материалы, честная цена. Производим малыми партиями и контролируем качество каждого изделия.</p>
+      </div>
+    </section>
+
+    <section id="contacts" style="margin-top:18px">
+      <div class="card" style="padding:20px 22px">
+        <h3 style="margin:6px 0 6px; font-family:'Playfair Display', serif; font-size:24px">Контакты</h3>
+        <p style="color:var(--muted)">Email: hello@orivella.example • Instagram: @orivella • Телефон: +7 (700) 000‑00‑00</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    © <span id="year"></span> ORIVELLA. Все права защищены.
+  </footer>
+
+  <!-- Floating button (duplicate to keep accessible everywhere) -->
+  <button class="fab" id="fabEditor">Редактор</button>
+
+  <!-- Editor Panel -->
+  <aside class="panel" id="editor">
+    <div class="panel-header">
+      <div class="panel-title">Редактор товаров</div>
+      <button class="btn ghost" id="closeEditor">Закрыть</button>
+    </div>
+    <div class="panel-body">
+      <form id="productForm">
+        <input type="hidden" id="prodId" />
+        <div class="field">
+          <label class="label" for="prodName">Название</label>
+          <input class="input" id="prodName" required placeholder="Например, Кольцо Aurora" />
+        </div>
+        <div class="row">
+          <div class="field">
+            <label class="label" for="prodPrice">Цена, ₸</label>
+            <input class="input" id="prodPrice" type="number" min="0" step="1" required placeholder="99000" />
+          </div>
+          <div class="field">
+            <label class="label" for="prodMaterial">Материал</label>
+            <select class="input" id="prodMaterial">
+              <option value="gold">Золото</option>
+              <option value="silver">Серебро</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="prodDesc">Описание</label>
+          <textarea class="input" id="prodDesc" rows="3" placeholder="Короткое описание изделия"></textarea>
+        </div>
+        <div class="field">
+          <label class="label">Изображение</label>
+          <input class="input" id="prodImage" type="file" accept="image/*" />
+          <small style="color:var(--muted)">Загрузите фото (будет сохранено локально в вашем браузере)</small>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn" id="saveBtn">Сохранить</button>
+          <button type="button" class="btn ghost" id="resetBtn">Очистить форму</button>
+        </div>
+      </form>
+
+      <div class="divider"></div>
+
+      <div class="row" style="gap:8px">
+        <button class="btn ghost" id="exportBtn">Экспорт JSON</button>
+        <label class="btn ghost" for="importInput" style="cursor:pointer">Импорт JSON</label>
+        <input type="file" id="importInput" accept="application/json" style="display:none" />
+        <button class="btn ghost" id="seedBtn">Добавить примеры</button>
+        <button class="btn ghost" id="clearAllBtn" style="margin-left:auto; color:#b91c1c; border-color:#fecaca">Удалить всё</button>
+      </div>
+
+      <h4 style="margin:18px 0 10px">Товары</h4>
+      <div class="mini-list" id="miniList"></div>
+    </div>
+  </aside>
+
+  <!-- Modal for Quick View -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="row" style="align-items:flex-start">
+        <div style="flex:1">
+          <img id="modalImg" src="" alt="" style="width:100%; border-radius:12px; background:#f3f4f6; aspect-ratio:1/1; object-fit:cover" />
+        </div>
+        <div style="flex:1; padding-left:14px">
+          <div class="mat-badge" id="modalMat"></div>
+          <h3 id="modalTitle" style="margin:10px 0 8px; font-family:'Playfair Display', serif; font-size:26px"></h3>
+          <div id="modalPrice" class="price" style="margin-bottom:10px"></div>
+          <p id="modalDesc" style="color:var(--muted)"></p>
+          <div class="actions" style="margin-top:14px">
+            <button class="btn">В корзину</button>
+            <button class="btn ghost" id="modalClose">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const chips = document.querySelectorAll('.chip');
+    const search = document.getElementById('search');
+    const filterMaterial = document.getElementById('filterMaterial');
+    const sortSel = document.getElementById('sort');
+
+    // --- Admin mode ---
+    // Включение: добавить ?admin в адрес или один раз выполнить в консоли:
+    // localStorage.setItem('orivella_admin','1')
+    // Отключение: удалить флаг или открыть без ?admin
+    const ADMIN_MODE = new URLSearchParams(location.search).has('admin') || localStorage.getItem('orivella_admin')==='1';
+
+    const editor = document.getElementById('editor');
+    const openEditorBtn = document.getElementById('openEditorBtn');
+    const fabEditor = document.getElementById('fabEditor');
+    const closeEditor = document.getElementById('closeEditor');
+
+    const form = document.getElementById('productForm');
+    const prodId = document.getElementById('prodId');
+    const prodName = document.getElementById('prodName');
+    const prodPrice = document.getElementById('prodPrice');
+    const prodMaterial = document.getElementById('prodMaterial');
+    const prodDesc = document.getElementById('prodDesc');
+    const prodImage = document.getElementById('prodImage');
+
+    const miniList = document.getElementById('miniList');
+
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalMat = document.getElementById('modalMat');
+    const modalClose = document.getElementById('modalClose');
+
+    const exportBtn = document.getElementById('exportBtn');
+    const importInput = document.getElementById('importInput');
+    const seedBtn = document.getElementById('seedBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+
+    const toast = document.getElementById('toast');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const KEY = 'orivella_products_v1';
+
+    // Скрываем UI редактора для посетителей
+    if(!ADMIN_MODE){
+      openEditorBtn?.style.setProperty('display','none');
+      fabEditor?.style.setProperty('display','none');
+      editor?.style.setProperty('display','none');
+    }
+
+    function showToast(msg){
+      toast.textContent = msg; toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 1800);
+    }
+
+    function loadProducts(){
+      try{ return JSON.parse(localStorage.getItem(KEY)) || []; }catch{ return [] }
+    }
+    function saveProducts(list){
+      localStorage.setItem(KEY, JSON.stringify(list));
+    }
+
+    function money(n){
+      return new Intl.NumberFormat('ru-RU', {style:'currency', currency:'KZT', maximumFractionDigits:0}).format(n)
+    }
+
+    function renderProducts(){
+      const q = search.value.trim().toLowerCase();
+      const mat = (filterMaterial.value || 'all');
+      const chipActive = document.querySelector('.chip.active')?.dataset.chip || 'all';
+      const sort = sortSel.value;
+
+      let items = loadProducts();
+
+      // filter by chip first
+      if(chipActive !== 'all') items = items.filter(p=>p.material===chipActive);
+      // dropdown filter overrides if not 'all'
+      if(mat !== 'all') items = items.filter(p=>p.material===mat);
+      if(q) items = items.filter(p=>p.name.toLowerCase().includes(q));
+
+      if(sort==='priceAsc') items.sort((a,b)=>a.price-b.price);
+      else if(sort==='priceDesc') items.sort((a,b)=>b.price-a.price);
+      else items.sort((a,b)=>b.createdAt - a.createdAt);
+
+      grid.innerHTML = items.map(p=>Card(p)).join('') || EmptyState();
+
+      // bind quick view buttons
+      document.querySelectorAll('[data-qv]')?.forEach(btn=>btn.addEventListener('click', () => openQuickView(btn.dataset.qv)));
+
+      // refresh mini list — только для админа
+      if(ADMIN_MODE){
+        miniList.innerHTML = items.map(p=>MiniItem(p)).join('');
+        bindMiniActions();
+      }
+    }
+
+    function EmptyState(){
+      return `<div class="card" style="grid-column:1/-1; padding:22px; text-align:center">
+        <h3 style="margin:6px 0 8px">Здесь пока пусто</h3>
+        <p style="color:var(--muted); margin:0 0 10px">Добавьте первые товары через «Редактор товаров»</p>
+        ${ADMIN_MODE ? `<button class="btn" id="quickAdd">Добавить пример</button>` : ``}
+      </div>`
+    }
+
+    function Card(p){
+      const badge = p.material==='gold' ? 'Золото' : 'Серебро';
+      const img = p.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      return `<div class="card">
+        <div class="thumb">
+          <img src="${img}" alt="${escapeHtml(p.name)}"/>
+          <div class="mat-badge">${badge}</div>
+        </div>
+        <div class="content">
+          <div class="title">${escapeHtml(p.name)}</div>
+          <div class="price">${money(p.price)}</div>
+          <div class="actions">
+            <button class="btn" data-qv="${p.id}">Быстрый просмотр</button>
+            ${ADMIN_MODE ? `<button class="btn ghost" data-edit="${p.id}">Редактировать</button>` : ``}
+          </div>
+        </div>
+      </div>`
+    }
+
+    function MiniItem(p){
+      const img = p.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      return `<div class="mini-item" data-id="${p.id}">
+        <img src="${img}" alt="${escapeHtml(p.name)}"/>
+        <div class="meta">
+          <div style="font-weight:600">${escapeHtml(p.name)}</div>
+          <div style="font-size:12px; color:var(--muted)">${p.material==='gold'?'Золото':'Серебро'} • ${money(p.price)}</div>
+        </div>
+        <button class="btn ghost" data-mini-edit="${p.id}">Изм.</button>
+        <button class="btn ghost" data-mini-del="${p.id}" style="color:#b91c1c; border-color:#fecaca">Удалить</button>
+      </div>`
+    }
+
+    function bindMiniActions(){
+      document.querySelectorAll('[data-mini-edit]')?.forEach(b=>b.onclick=()=>fillForm(b.dataset.miniEdit));
+      document.querySelectorAll('[data-mini-del]')?.forEach(b=>b.onclick=()=>delProduct(b.dataset.miniDel));
+      document.querySelectorAll('[data-edit]')?.forEach(b=>b.onclick=()=>fillForm(b.dataset.edit));
+      const quickAdd = document.getElementById('quickAdd');
+      if(quickAdd){ quickAdd.onclick = seedExamples }
+    }
+
+    function openQuickView(id){
+      const item = loadProducts().find(x=>x.id===id); if(!item) return;
+      modalImg.src = item.image || '';
+      modalTitle.textContent = item.name;
+      modalPrice.textContent = money(item.price);
+      modalDesc.textContent = item.description || '';
+      modalMat.textContent = item.material==='gold'?'Золото':'Серебро';
+      modal.classList.add('open');
+    }
+
+    modal.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open') });
+    modalClose.addEventListener('click', ()=>modal.classList.remove('open'));
+
+    function escapeHtml(str=''){
+      return str.replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[s]))
+    }
+
+    function toggleEditor(show){ if(!ADMIN_MODE) return; editor.classList[show?'add':'remove']('open') }
+    if(ADMIN_MODE){
+      openEditorBtn?.addEventListener('click',()=>toggleEditor(true));
+      fabEditor?.addEventListener('click',()=>toggleEditor(true));
+      closeEditor?.addEventListener('click',()=>toggleEditor(false));
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const id = prodId.value || crypto.randomUUID();
+      const file = prodImage.files?.[0];
+      let imageData = null;
+      if(file){ imageData = await readFileAsDataURL(file) }
+      const payload = {
+        id,
+        name: prodName.value.trim(),
+        price: Number(prodPrice.value||0),
+        material: prodMaterial.value,
+        description: prodDesc.value.trim(),
+        image: imageData || (loadProducts().find(p=>p.id===id)?.image || null),
+        createdAt: loadProducts().find(p=>p.id===id)?.createdAt || Date.now()
+      };
+      const items = loadProducts();
+      const idx = items.findIndex(p=>p.id===id);
+      if(idx>-1) items[idx]=payload; else items.push(payload);
+      saveProducts(items);
+      showToast('Товар сохранён');
+      form.reset(); prodId.value=''; prodMaterial.value='gold';
+      renderProducts();
+    });
+
+    function fillForm(id){
+      const item = loadProducts().find(x=>x.id===id); if(!item) return;
+      prodId.value = item.id; prodName.value=item.name; prodPrice.value=item.price; prodMaterial.value=item.material; prodDesc.value=item.description||'';
+      toggleEditor(true);
+      showToast('Данные товара загружены в форму');
+    }
+
+    function delProduct(id){
+      if(!confirm('Удалить товар?')) return;
+      const items = loadProducts().filter(p=>p.id!==id); saveProducts(items); renderProducts(); showToast('Удалено');
+    }
+
+    function readFileAsDataURL(file){
+      return new Promise((res, rej)=>{ const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(file) })
+    }
+
+    // Filters
+    chips.forEach(ch=>ch.addEventListener('click',()=>{
+      chips.forEach(x=>x.classList.remove('active')); ch.classList.add('active'); renderProducts();
+    }));
+    search.addEventListener('input', renderProducts);
+    filterMaterial.addEventListener('change', renderProducts);
+    sortSel.addEventListener('change', renderProducts);
+
+    // Export / Import / Seed / Clear — только в ADMIN_MODE
+    if(ADMIN_MODE){
+      exportBtn.addEventListener('click', ()=>{
+        const data = JSON.stringify(loadProducts(), null, 2);
+        const blob = new Blob([data], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href=url; a.download='orivella-products.json'; a.click(); URL.revokeObjectURL(url);
+        showToast('Файл экспортирован');
+      });
+      importInput.addEventListener('change', async ()=>{
+        const file = importInput.files?.[0]; if(!file) return;
+        const text = await file.text();
+        try{ const data = JSON.parse(text); if(Array.isArray(data)){ saveProducts(data); renderProducts(); showToast('Импорт успешно'); } else throw new Error('bad') }
+        catch{ alert('Неверный формат файла'); }
+        importInput.value='';
+      });
+      seedBtn.addEventListener('click', seedExamples);
+      clearAllBtn.addEventListener('click', ()=>{
+        if(!confirm('Удалить все товары?')) return;
+        localStorage.removeItem(KEY); renderProducts(); showToast('Список очищен');
+      });
+    }
+
+    function seedExamples(){
+      const demo = [
+        {id:crypto.randomUUID(), name:'Кольцо Aurora', price:129000, material:'gold', description:'Золото 585, матовая поверхность', image:'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-3e5},
+        {id:crypto.randomUUID(), name:'Серьги Halo', price:99000, material:'silver', description:'Серебро 925, покрытие родием', image:'https://images.unsplash.com/photo-1617038260897-3babb5a78775?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-2e5},
+        {id:crypto.randomUUID(), name:'Браслет Étoile', price:159000, material:'gold', description:'Ажурный браслет, золото 585', image:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-1e5},
+        {id:crypto.randomUUID(), name:'Кулон Lune', price:79000, material:'silver', description:'Серебро 925, минималистичный диск', image:'https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-5e4}
+      ];
+      const current = loadProducts();
+      saveProducts(demo.concat(current));
+      renderProducts();
+      showToast('Добавлены примерные товары');
+    }
+
+    // First render
+    renderProducts();
+  </script>
+</body>
+</html>
