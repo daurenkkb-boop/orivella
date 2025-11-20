@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Стили остались без изменений */
     :root{
       --bg: #f7f7f9;
       --card: #ffffff;
@@ -25,7 +26,7 @@
     a{color:inherit; text-decoration:none}
     .container{max-width:1200px; margin:0 auto; padding:0 20px}
 
-    /* ===== Header ===== */
+    /* Header */
     header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(10px); background:rgba(255,255,255,.7); border-bottom:1px solid rgba(0,0,0,.05); z-index:50; transform:translateZ(0)}
     .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
     .brand{display:flex; align-items:center; gap:12px}
@@ -39,7 +40,7 @@
     .cart-btn{position:relative; border:1px solid #e5e7eb; background:#fff; padding:8px 12px; border-radius:999px; cursor:pointer; box-shadow:var(--shadow); display:flex; align-items:center; gap:8px}
     .cart-count{position:absolute; top:-6px; right:-6px; background:#111827; color:#fff; border-radius:999px; font-size:11px; padding:2px 6px}
 
-    /* ===== Hero ===== */
+    /* Hero */
     .hero{padding:64px 0 28px}
     .hero-wrap{display:grid; grid-template-columns:1.15fr .85fr; gap:28px}
     .hero-card{background:var(--card); border-radius:var(--radius-2xl); padding:36px; box-shadow:var(--shadow); position:relative; overflow:hidden}
@@ -49,13 +50,13 @@
     .btn{position:relative; overflow:hidden; border:0; padding:12px 18px; border-radius:14px; background:#111827; color:#fff; font-weight:600; cursor:pointer; box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .25s ease}
     .btn:hover{transform:translateY(-1px)}
     .btn:active{transform:translateY(0)}
-    .btn-alt{background:var(--card); color:#111827; border:1px solid #e5e7eb}
+    .btn-alt{background:var(--card); color:#111827; border:1px solid #e5e7eb; display:none;} 
     .badge{display:inline-flex; align-items:center; gap:8px; background:#fff7ea; color:#7a5a16; border:1px solid #f4e2b8; padding:8px 12px; border-radius:999px; font-size:13px; margin-bottom:16px; animation:pop .5s ease}
     .hero-image{background:var(--card); border-radius:var(--radius-2xl); box-shadow:var(--shadow); display:grid; place-items:center; padding:24px; position:relative; overflow:hidden}
     .hero-image::after{content:""; position:absolute; inset:auto -60px -60px auto; width:240px; height:240px; filter:blur(18px)}
     .hero-jewel{width:100%; max-width:520px; border-radius:18px; transform:translateZ(0)}
 
-    /* ===== Toolbar & grid ===== */
+    /* Grid & Toolbar */
     .toolbar{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding:8px 0 18px}
     .controls{display:flex; gap:10px; flex-wrap:wrap}
     .input, select{padding:12px 14px; border-radius:12px; border:1px solid #e5e7eb; background:#fff; box-shadow:0 0 0 3px transparent; outline:none; transition:.2s}
@@ -85,20 +86,19 @@
 
     footer{margin:44px 0 64px; color:var(--muted); text-align:center}
 
-    /* ===== Floating Buttons ===== */
+    /* Misc */
     .to-top{position:fixed; right:20px; bottom:88px; padding:10px 12px; border-radius:999px; background:#fff; border:1px solid #e5e7eb; box-shadow:var(--shadow); cursor:pointer; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease; z-index:55}
     .to-top.visible{opacity:1; pointer-events:auto; transform:translateY(0)}
-    .fab{position:fixed; right:22px; bottom:22px; background:#111827; color:#fff; border:0; border-radius:999px; padding:14px 18px; box-shadow:var(--shadow); cursor:pointer; z-index:60; transition:transform .2s ease}
+    .fab{position:fixed; right:22px; bottom:22px; background:#111827; color:#fff; border:0; border-radius:999px; padding:14px 18px; box-shadow:var(--shadow); cursor:pointer; z-index:60; transition:transform .2s ease; display:none}
     .fab:hover{transform:translateY(-2px)}
 
-    /* ===== Panels ===== */
+    /* Panels */
     .panel{position:fixed; top:0; right:0; width:420px; max-width:100%; height:100%; background:#fff; box-shadow:-20px 0 50px rgba(0,0,0,.15); transform:translateX(100%); transition:transform .35s ease; z-index:70; display:flex; flex-direction:column}
     .panel.open{transform:translateX(0)}
     .panel-header{display:flex; align-items:center; justify-content:space-between; padding:18px 18px; border-bottom:1px solid #eee}
     .panel-title{font-weight:700}
     .panel-body{padding:18px; overflow:auto}
 
-    /* Editor */
     .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
     .label{font-size:13px; color:#374151}
     .row{display:flex; gap:10px}
@@ -109,7 +109,7 @@
     .mini-item img{width:44px; height:44px; object-fit:cover; border-radius:10px}
     .mini-item .meta{flex:1}
 
-    /* Cart panel */
+    /* Cart */
     .panel.cart{left:auto; right:0}
     .cart-item{display:flex; gap:10px; align-items:center; padding:8px; border:1px solid #eee; border-radius:12px; margin-bottom:10px}
     .cart-item img{width:60px; height:60px; object-fit:cover; border-radius:10px}
@@ -118,21 +118,16 @@
     .cart-footer{display:flex; align-items:center; justify-content:space-between; gap:12px; position:sticky; bottom:0; background:#fff; padding-top:12px; border-top:1px solid #eee}
     .cart-footer .btn[disabled]{opacity:.5; cursor:not-allowed}
 
-    /* ===== Modal ===== */
+    /* Modals & Toast */
     .modal{position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; align-items:center; justify-content:center; padding:20px; z-index:80}
     .modal.open{display:flex}
     .modal-card{background:#fff; border-radius:18px; padding:18px; max-width:760px; width:100%; box-shadow:var(--shadow); transform:translateY(20px) scale(.98); opacity:0; animation:modalIn .35s ease forwards}
-
-    /* Admin auth modal tweaks */
     #adminAuthModal .modal-card{max-width:420px}
-
-    /* ===== Toast & reveal ===== */
     .toast{position:fixed; left:50%; transform:translateX(-50%) translateY(20px); bottom:24px; background:#111827; color:#fff; padding:10px 14px; border-radius:12px; display:none; z-index:90; opacity:0}
     .toast.show{display:block; animation:toastIn .25s ease forwards}
     .reveal{opacity:0; transform:translate3d(0,16px,0); transition:opacity .6s ease, transform .6s ease}
     .reveal.reveal-visible{opacity:1; transform:translate3d(0,0,0)}
 
-    /* ===== Keyframes ===== */
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
     @keyframes pop{0%{transform:scale(.9); opacity:0} 100%{transform:scale(1); opacity:1}}
     @keyframes modalIn{to{transform:translateY(0) scale(1); opacity:1}}
@@ -173,7 +168,7 @@
           </div>
         </div>
         <div class="hero-image parallax">
-          <img class="hero-jewel" src="img/boxlogo.jpeg" alt="ORIVELLA hero" />
+          <img class="hero-jewel" src="img/boxlogo.jpeg" alt="ORIVELLA hero" onerror="this.src='https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=80&w=600&auto=format&fit=crop'"/>
         </div>
       </div>
     </section>
@@ -222,7 +217,6 @@
     © <span id="year"></span> ORIVELLA. Все права защищены.
   </footer>
 
-  <!-- Floating buttons -->
   <button class="to-top" id="toTop" aria-label="Наверх">↑</button>
   <button class="fab" id="fabEditor">Редактор</button>
 
@@ -230,10 +224,17 @@
   <aside class="panel" id="editor">
     <div class="panel-header">
       <div class="panel-title">Редактор товаров</div>
-      <button class="btn ghost" id="logoutBtn" title="Выйти из админ-режима">Выйти</button>
+      <button class="btn ghost" id="logoutBtn" title="Выйти из админ-режима" style="display:none">Выйти</button>
       <button class="btn ghost" id="closeEditor">Закрыть</button>
     </div>
     <div class="panel-body">
+      <div style="background:#fff7ea; padding:12px; border-radius:8px; margin-bottom:16px; border:1px solid #f4e2b8; font-size:13px; line-height:1.4;">
+        <strong>Как сохранить изменения:</strong><br>
+        1. Внесите изменения.<br>
+        2. Нажмите <b>«Скачать JSON»</b>.<br>
+        3. Загрузите этот файл в свой GitHub репозиторий поверх старого.
+      </div>
+
       <form id="productForm">
         <input type="hidden" id="prodId" />
         <div class="field">
@@ -260,25 +261,25 @@
         <div class="field">
           <label class="label">Изображение</label>
           <input class="input" id="prodImage" type="file" accept="image/*" />
-          <small style="color:var(--muted)">Загрузите фото (будет сохранено локально в вашем браузере)</small>
+          <small style="color:var(--muted)">Лучше использовать маленькие фото.</small>
         </div>
         <div class="row">
-          <button type="submit" class="btn" id="saveBtn">Сохранить</button>
-          <button type="button" class="btn ghost" id="resetBtn">Очистить форму</button>
+          <button type="submit" class="btn" id="saveBtn">Сохранить в список</button>
+          <button type="button" class="btn ghost" id="resetBtn">Очистить</button>
         </div>
       </form>
 
       <div class="divider"></div>
 
       <div class="row" style="gap:8px">
-        <button class="btn ghost" id="exportBtn">Экспорт JSON</button>
-        <label class="btn ghost" for="importInput" style="cursor:pointer">Импорт JSON</label>
-        <input type="file" id="importInput" accept="application/json" style="display:none" />
-        <button class="btn ghost" id="seedBtn">Добавить примеры</button>
+        <button class="btn" id="downloadBtn" style="flex:1; background:var(--accent-2); border-color:var(--accent-2); color:#fff">⬇ Скачать JSON для GitHub</button>
+      </div>
+      <div class="row" style="gap:8px; margin-top:10px">
+        <button class="btn ghost" id="seedBtn">Примеры</button>
         <button class="btn ghost" id="clearAllBtn" style="margin-left:auto; color:#b91c1c; border-color:#fecaca">Удалить всё</button>
       </div>
 
-      <h4 style="margin:18px 0 10px">Товары</h4>
+      <h4 style="margin:18px 0 10px">Товары (локально)</h4>
       <div class="mini-list" id="miniList"></div>
     </div>
   </aside>
@@ -308,7 +309,7 @@
   <div class="modal" id="adminAuthModal" aria-hidden="true">
     <div class="modal-card">
       <h3 style="margin-top:0">Вход в админ-панель</h3>
-      <p style="color:var(--muted); margin-top:4px">Введите пароль, чтобы открыть редактор товаров.</p>
+      <p style="color:var(--muted); margin-top:4px">Пароль для редактирования</p>
       <input id="adminPassInput" type="password" placeholder="Пароль" style="width:100%; padding:10px; border-radius:8px; margin-top:12px; border:1px solid #e5e7eb" />
       <p id="adminError" style="color:#b91c1c; display:none; margin-top:8px; font-size:13px;"></p>
       <div style="display:flex; gap:8px; margin-top:14px; justify-content:flex-end;">
@@ -342,6 +343,10 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // === GITHUB RAW DATA LINK ===
+    // Читаем "сырой" JSON прямо с вашего репозитория
+    const DATA_URL = 'https://raw.githubusercontent.com/daurenkkb-boop/orivella/main/orivella-products.json';
+
     const grid = document.getElementById('grid');
     const chips = document.querySelectorAll('.chip');
     const search = document.getElementById('search');
@@ -369,6 +374,7 @@
     const prodMaterial = document.getElementById('prodMaterial');
     const prodDesc = document.getElementById('prodDesc');
     const prodImage = document.getElementById('prodImage');
+    const downloadBtn = document.getElementById('downloadBtn');
 
     const miniList = document.getElementById('miniList');
 
@@ -381,13 +387,7 @@
     const modalClose = document.getElementById('modalClose');
     const modalAddBtn = document.getElementById('modalAddBtn');
 
-    const exportBtn = document.getElementById('exportBtn');
     const logoutBtn = document.getElementById('logoutBtn');
-    logoutBtn?.addEventListener('click', ()=>{
-      setAdminUI(false);          // выключаем админ-режим и скрываем редактор
-      showToast('Вы вышли из админ-режима');
-    });
-    const importInput = document.getElementById('importInput');
     const seedBtn = document.getElementById('seedBtn');
     const clearAllBtn = document.getElementById('clearAllBtn');
 
@@ -395,19 +395,19 @@
     const toTop = document.getElementById('toTop');
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const KEY = 'orivella_products_v1';
     const CART_KEY = 'orivella_cart_v1';
+    
+    // Основной массив товаров
+    let productsData = [];
 
-    // ===== Admin Auth (client-side, SHA-256) =====
-    // По умолчанию хэш для пароля "orivella2025". Замените на свой (см. инструкцию ниже).
-    const ADMIN_PASS_HASH = '5423aa35157e1c6407836fb954b4c14b006d2bf65f8630a841a6775b18ebd5dd';
+    // ===== Admin Auth (SHA-256) =====
+    const ADMIN_PASS_HASH = '5423aa35157e1c6407836fb954b4c14b006d2bf65f8630a841a6775b18ebd5dd'; // Пароль: orivella2025
 
     async function sha256Hex(str){
       const enc = new TextEncoder();
       const data = enc.encode(str);
       const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+      return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2,'0')).join('');
     }
 
     function setAdminUI(enabled){
@@ -417,6 +417,7 @@
         editor?.style.removeProperty('display');
         logoutBtn?.style.setProperty('display','inline-flex');
         localStorage.setItem('orivella_admin','1');
+        renderMiniList(); 
       } else {
         openEditorBtn?.style.setProperty('display','none');
         fabEditor?.style.setProperty('display','none');
@@ -426,6 +427,11 @@
         localStorage.removeItem('orivella_admin');
       }
     }
+
+    logoutBtn?.addEventListener('click', ()=>{
+      setAdminUI(false);
+      showToast('Вы вышли из админ-режима');
+    });
 
     function openAdminModal(){
       const m = document.getElementById('adminAuthModal');
@@ -442,52 +448,75 @@
         if(h === ADMIN_PASS_HASH){
           m.classList.remove('open');
           setAdminUI(true);
-          try{
-            const u = new URL(location.href); u.searchParams.delete('admin'); history.replaceState({},'',u.toString());
-          }catch(e){}
+          try{const u = new URL(location.href); u.searchParams.delete('admin'); history.replaceState({},'',u.toString());}catch(e){}
           showToast('Админ-режим активирован');
         } else {
           err.style.display='block'; err.textContent='Неверный пароль';
         }
       };
-
       submit.onclick = onSubmit;
       input.onkeydown = (e)=>{ if(e.key==='Enter') onSubmit(); };
       cancel.onclick = ()=>{ m.classList.remove('open'); };
     }
 
-    // Вычисляем, админ ли уже авторизован
     let ADMIN_MODE = localStorage.getItem('orivella_admin')==='1';
-    // Если пришли с ?admin и не авторизованы — запросим пароль
     if(new URLSearchParams(location.search).has('admin') && !ADMIN_MODE){
       setTimeout(openAdminModal, 50);
     }
-    // Применим текущий режим при загрузке
     setAdminUI(ADMIN_MODE);
 
     function showToast(msg){
       toast.textContent = msg; toast.classList.add('show');
-      setTimeout(()=>toast.classList.remove('show'), 1600);
+      setTimeout(()=>toast.classList.remove('show'), 2500);
     }
 
-    // ===== Products API (localStorage) =====
-    function loadProducts(){
-      try{ return JSON.parse(localStorage.getItem(KEY)) || []; }catch{ return [] }
+    // ===== ЧТЕНИЕ С GITHUB =====
+    
+    async function fetchProducts() {
+      try {
+        showToast('Загрузка каталога...');
+        // Добавляем timestamp, чтобы избежать кэширования браузером
+        const response = await fetch(DATA_URL + '?t=' + Date.now());
+        if (!response.ok) throw new Error('Ошибка загрузки');
+        
+        productsData = await response.json();
+        if(!Array.isArray(productsData)) productsData = [];
+        
+        renderProducts();
+        if(ADMIN_MODE) renderMiniList();
+        toast.classList.remove('show');
+      } catch (e) {
+        console.error(e);
+        // Если файл не найден (404), просто считаем что товаров 0
+        productsData = [];
+        renderProducts();
+        toast.classList.remove('show');
+      }
     }
-    function saveProducts(list){ localStorage.setItem(KEY, JSON.stringify(list)); }
+
+    // ===== СКАЧИВАНИЕ ФАЙЛА ДЛЯ GITHUB =====
+    downloadBtn.addEventListener('click', () => {
+      const data = JSON.stringify(productsData, null, 2);
+      const blob = new Blob([data], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'orivella-products.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Файл скачан! Загрузите его на GitHub.');
+    });
+
     function money(n){ return new Intl.NumberFormat('ru-RU', {style:'currency', currency:'KZT', maximumFractionDigits:0}).format(n) }
 
-    // ===== Cart API =====
+    // ===== Cart Logic =====
     function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY))||[] }catch{ return [] } }
     function saveCart(list){ localStorage.setItem(CART_KEY, JSON.stringify(list)); }
-    function cartTotals(){
+    
+    function updateCartBadge(){
       const items = loadCart();
       const count = items.reduce((s,i)=>s+i.qty,0);
       const sum = items.reduce((s,i)=>s+i.price*i.qty,0);
-      return {count, sum}
-    }
-    function updateCartBadge(){
-      const {count, sum} = cartTotals();
       cartCount.textContent = count;
       cartSubtotal.textContent = money(sum);
       const empty = count === 0;
@@ -495,6 +524,7 @@
       checkoutBtn.classList.toggle('ghost', empty);
       checkoutBtn.setAttribute('aria-disabled', empty ? 'true' : 'false');
     }
+
     function addToCart(product, qty=1){
       const items = loadCart();
       const idx = items.findIndex(i=>i.id===product.id);
@@ -504,19 +534,21 @@
       saveCart(items); updateCartBadge(); renderCart();
       showToast('Добавлено в корзину');
     }
+
     function changeQty(id, delta){
       const items = loadCart();
       const idx = items.findIndex(i=>i.id===id); if(idx===-1) return;
       items[idx].qty += delta; if(items[idx].qty<1) items[idx].qty=1;
       saveCart(items); updateCartBadge(); renderCart();
     }
+
     function removeFromCart(id){
       const items = loadCart().filter(i=>i.id!==id); saveCart(items); updateCartBadge(); renderCart();
     }
     function clearCart(){ saveCart([]); updateCartBadge(); renderCart(); }
 
     function CartItem(i){
-      const img = i.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      const img = i.image || 'https://placehold.co/100x100?text=No+Img';
       return `<div class="cart-item">
         <img src="${img}" alt="${escapeHtml(i.name)}"/>
         <div style="flex:1">
@@ -547,20 +579,24 @@
       const msg = encodeURIComponent(`Здравствуйте! Хочу оформить заказ:${orderText}Итого: ${total}`);
       checkoutBtn.href = `https://wa.me/77000000000?text=${msg}`;
     }
+    
+    cartBtn.addEventListener('click', ()=>cartPanel.classList.add('open'));
+    closeCart.addEventListener('click', ()=>cartPanel.classList.remove('open'));
+    clearCartBtn.addEventListener('click', ()=>{ if(confirm('Очистить корзину?')) clearCart(); });
 
-    function openCart(show){ cartPanel.classList[show?'add':'remove']('open'); }
-
-    // ===== Render products =====
+    // ===== Render =====
     function renderProducts(){
       const q = search.value.trim().toLowerCase();
       const mat = (filterMaterial.value || 'all');
       const chipActive = document.querySelector('.chip.active')?.dataset.chip || 'all';
       const sort = sortSel.value;
 
-      let items = loadProducts();
+      let items = [...productsData];
+      
       if(chipActive !== 'all') items = items.filter(p=>p.material===chipActive);
       if(mat !== 'all') items = items.filter(p=>p.material===mat);
       if(q) items = items.filter(p=>p.name.toLowerCase().includes(q));
+      
       if(sort==='priceAsc') items.sort((a,b)=>a.price-b.price);
       else if(sort==='priceDesc') items.sort((a,b)=>b.price-a.price);
       else items.sort((a,b)=>b.createdAt - a.createdAt);
@@ -569,10 +605,8 @@
 
       document.querySelectorAll('[data-qv]')?.forEach(btn=>btn.addEventListener('click', () => openQuickView(btn.dataset.qv)));
       document.querySelectorAll('[data-add]')?.forEach(btn=>btn.addEventListener('click', () => addToCartById(btn.dataset.add)));
-
-      if(localStorage.getItem('orivella_admin')==='1'){
-        miniList.innerHTML = items.map(p=>MiniItem(p)).join('');
-        bindMiniActions();
+      if(ADMIN_MODE){
+          document.querySelectorAll('[data-edit]')?.forEach(b=>b.onclick=()=>fillForm(b.dataset.edit));
       }
 
       grid.querySelectorAll('.card').forEach(el=>observer.observe(el));
@@ -581,17 +615,17 @@
     }
 
     function EmptyState(){
-      const isAdmin = localStorage.getItem('orivella_admin')==='1';
-      return `<div class="card reveal-visible" style="grid-column:1/-1; padding:22px; text-align:center">
+       return `<div class="card reveal-visible" style="grid-column:1/-1; padding:22px; text-align:center">
         <h3 style="margin:6px 0 8px">Здесь пока пусто</h3>
-        <p style="color:var(--muted); margin:0 0 10px">Добавьте первые товары через «Редактор товаров»</p>
-        ${isAdmin ? `<button class=\"btn\" id=\"quickAdd\">Добавить пример</button>` : ``}
+        <p style="color:var(--muted)">Каталог обновляется...</p>
       </div>`
     }
 
     function Card(p){
       const badge = p.material==='gold' ? 'Золото' : 'Серебро';
-      const img = p.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      const img = p.image || 'https://placehold.co/400x400?text=No+Img';
+      const adminEditBtn = ADMIN_MODE ? `<button class="btn ghost" data-edit="${p.id}">Ред.</button>` : '';
+      
       return `<div class="card">
         <div class="thumb tilt">
           <img src="${img}" alt="${escapeHtml(p.name)}"/>
@@ -602,36 +636,34 @@
           <div class="price">${money(p.price)}</div>
           <div class="actions">
             <button class="btn" data-add="${p.id}">В корзину</button>
-            <button class="btn ghost" data-qv="${p.id}">Быстрый просмотр</button>
-            ${localStorage.getItem('orivella_admin')==='1' ? `<button class="btn ghost" data-edit="${p.id}">Редактировать</button>` : ``}
+            <button class="btn ghost" data-qv="${p.id}">Просмотр</button>
+            ${adminEditBtn}
           </div>
         </div>
       </div>`
     }
 
+    function renderMiniList() {
+      miniList.innerHTML = productsData.map(p=>MiniItem(p)).join('');
+      document.querySelectorAll('[data-mini-edit]').forEach(b=>b.onclick=()=>fillForm(b.dataset.miniEdit));
+      document.querySelectorAll('[data-mini-del]').forEach(b=>b.onclick=()=>delProduct(b.dataset.miniDel));
+    }
+
     function MiniItem(p){
-      const img = p.image || 'https://images.unsplash.com/photo-1520962922320-2038eebab146?q=80&w=1200&auto=format&fit=crop';
+      const img = p.image || 'https://placehold.co/50x50';
       return `<div class="mini-item" data-id="${p.id}">
         <img src="${img}" alt="${escapeHtml(p.name)}"/>
         <div class="meta">
           <div style="font-weight:600">${escapeHtml(p.name)}</div>
-          <div style="font-size:12px; color:var(--muted)">${p.material==='gold'?'Золото':'Серебро'} • ${money(p.price)}</div>
+          <div style="font-size:12px; color:var(--muted)">${money(p.price)}</div>
         </div>
         <button class="btn ghost" data-mini-edit="${p.id}">Изм.</button>
-        <button class="btn ghost" data-mini-del="${p.id}" style="color:#b91c1c; border-color:#fecaca">Удалить</button>
+        <button class="btn ghost" data-mini-del="${p.id}" style="color:#b91c1c; border-color:#fecaca">Х</button>
       </div>`
     }
 
-    function bindMiniActions(){
-      document.querySelectorAll('[data-mini-edit]')?.forEach(b=>b.onclick=()=>fillForm(b.dataset.miniEdit));
-      document.querySelectorAll('[data-mini-del]')?.forEach(b=>b.onclick=()=>delProduct(b.dataset.miniDel));
-      document.querySelectorAll('[data-edit]')?.forEach(b=>b.onclick=()=>fillForm(b.dataset.edit));
-      const quickAdd = document.getElementById('quickAdd');
-      if(quickAdd){ quickAdd.onclick = seedExamples }
-    }
-
     function openQuickView(id){
-      const item = loadProducts().find(x=>x.id===id); if(!item) return;
+      const item = productsData.find(x=>x.id===id); if(!item) return;
       modal.dataset.id = item.id;
       modalImg.src = item.image || '';
       modalTitle.textContent = item.name;
@@ -640,25 +672,19 @@
       modalMat.textContent = item.material==='gold'?'Золото':'Серебро';
       modal.classList.add('open');
     }
-
-    modal.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open') });
     modalClose.addEventListener('click', ()=>modal.classList.remove('open'));
+    modal.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open') });
     modalAddBtn.addEventListener('click', ()=>{ const id = modal.dataset.id; if(id) addToCartById(id); modal.classList.remove('open'); });
 
     function addToCartById(id){
-      const p = loadProducts().find(x=>x.id===id); if(!p){ showToast('Товар не найден'); return; }
+      const p = productsData.find(x=>x.id===id); if(!p){ showToast('Товар не найден'); return; }
       addToCart(p, 1);
     }
 
-    function escapeHtml(str=''){
-      return str.replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[s]))
-    }
+    function escapeHtml(str=''){ return str ? str.replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[s])) : ''; }
 
-    // Editor open/close (проверка в toggle)
-    function toggleEditor(show){
-      if(localStorage.getItem('orivella_admin')!=='1') return;
-      editor.classList[show?'add':'remove']('open');
-    }
+    // ===== EDITOR LOGIC =====
+    function toggleEditor(show){ if(!ADMIN_MODE) return; editor.classList[show?'add':'remove']('open'); }
     openEditorBtn?.addEventListener('click',()=>toggleEditor(true));
     fabEditor?.addEventListener('click',()=>toggleEditor(true));
     closeEditor?.addEventListener('click',()=>toggleEditor(false));
@@ -668,98 +694,73 @@
       const id = prodId.value || crypto.randomUUID();
       const file = prodImage.files?.[0];
       let imageData = null;
-      if(file){ imageData = await readFileAsDataURL(file) }
+      
+      if(file){ imageData = await readFileAsDataURL(file); }
+      
+      const existingItem = productsData.find(p=>p.id === id);
+
       const payload = {
         id,
         name: prodName.value.trim(),
         price: Number(prodPrice.value||0),
         material: prodMaterial.value,
         description: prodDesc.value.trim(),
-        image: imageData || (loadProducts().find(p=>p.id===id)?.image || null),
-        createdAt: loadProducts().find(p=>p.id===id)?.createdAt || Date.now()
+        image: imageData || (existingItem ? existingItem.image : null),
+        createdAt: existingItem ? existingItem.createdAt : Date.now()
       };
-      const items = loadProducts();
-      const idx = items.findIndex(p=>p.id===id);
-      if(idx>-1) items[idx]=payload; else items.push(payload);
-      saveProducts(items);
-      showToast('Товар сохранён');
-      confetti(8);
-      form.reset(); prodId.value=''; prodMaterial.value='gold';
+
+      const idx = productsData.findIndex(p=>p.id===id);
+      if(idx > -1) productsData[idx] = payload; 
+      else productsData.push(payload);
+
       renderProducts();
+      renderMiniList();
+      showToast('Добавлено в список. Не забудьте "Скачать JSON"!');
+      form.reset(); prodId.value=''; prodMaterial.value='gold';
     });
 
     function fillForm(id){
-      const item = loadProducts().find(x=>x.id===id); if(!item) return;
+      const item = productsData.find(x=>x.id===id); if(!item) return;
       prodId.value = item.id; prodName.value=item.name; prodPrice.value=item.price; prodMaterial.value=item.material; prodDesc.value=item.description||'';
       toggleEditor(true);
-      showToast('Данные товара загружены в форму');
     }
 
     function delProduct(id){
       if(!confirm('Удалить товар?')) return;
-      const items = loadProducts().filter(p=>p.id!==id); saveProducts(items); renderProducts(); showToast('Удалено');
+      productsData = productsData.filter(p=>p.id!==id);
+      renderProducts(); renderMiniList();
+      showToast('Удалено. Не забудьте "Скачать JSON"!');
     }
 
     function readFileAsDataURL(file){
       return new Promise((res, rej)=>{ const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(file) })
     }
+    
+    seedBtn.addEventListener('click', ()=>{
+      if(!ADMIN_MODE) return;
+      const demo = [
+        {id:crypto.randomUUID(), name:'Кольцо Aurora', price:129000, material:'gold', description:'Золото 585', image:'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=600&auto=format&fit=crop', createdAt: Date.now()},
+        {id:crypto.randomUUID(), name:'Серьги Halo', price:99000, material:'silver', description:'Серебро 925', image:'https://images.unsplash.com/photo-1617038260897-3babb5a78775?q=80&w=600&auto=format&fit=crop', createdAt: Date.now()-100},
+        {id:crypto.randomUUID(), name:'Браслет Étoile', price:159000, material:'gold', description:'Ажурный браслет', image:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=600&auto=format&fit=crop', createdAt: Date.now()-200}
+      ];
+      productsData = [...demo, ...productsData];
+      renderProducts(); renderMiniList();
+    });
 
-    // ===== Filters =====
-    chips.forEach(ch=>ch.addEventListener('click',()=>{
-      chips.forEach(x=>x.classList.remove('active')); ch.classList.add('active'); renderProducts();
-    }));
+    clearAllBtn.addEventListener('click', ()=>{
+      if(!ADMIN_MODE) return;
+      if(confirm('Очистить весь список?')) { productsData = []; renderProducts(); renderMiniList(); }
+    });
+
+    // Init
+    chips.forEach(ch=>ch.addEventListener('click',()=>{ chips.forEach(x=>x.classList.remove('active')); ch.classList.add('active'); renderProducts(); }));
     search.addEventListener('input', renderProducts);
     filterMaterial.addEventListener('change', renderProducts);
     sortSel.addEventListener('change', renderProducts);
 
-    // ===== Export / Import / Seed / Clear (admin only) =====
-    exportBtn.addEventListener('click', ()=>{
-      if(localStorage.getItem('orivella_admin')!=='1'){ showToast('Только для администратора'); return; }
-      const data = JSON.stringify(loadProducts(), null, 2);
-      const blob = new Blob([data], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download='orivella-products.json'; a.click(); URL.revokeObjectURL(url);
-      showToast('Файл экспортирован');
-    });
-    importInput.addEventListener('change', async ()=>{
-      if(localStorage.getItem('orivella_admin')!=='1'){ showToast('Только для администратора'); importInput.value=''; return; }
-      const file = importInput.files?.[0]; if(!file) return;
-      const text = await file.text();
-      try{ const data = JSON.parse(text); if(Array.isArray(data)){ saveProducts(data); renderProducts(); showToast('Импорт успешно'); } else throw new Error('bad') }
-      catch{ alert('Неверный формат файла'); }
-      importInput.value='';
-    });
-    seedBtn.addEventListener('click', ()=>{
-      if(localStorage.getItem('orivella_admin')!=='1'){ showToast('Только для администратора'); return; }
-      seedExamples();
-    });
-    clearAllBtn.addEventListener('click', ()=>{
-      if(localStorage.getItem('orivella_admin')!=='1'){ showToast('Только для администратора'); return; }
-      if(!confirm('Удалить все товары?')) return;
-      localStorage.removeItem(KEY); renderProducts(); showToast('Список очищен');
-    });
-
-    function seedExamples(){
-      const demo = [
-        {id:crypto.randomUUID(), name:'Кольцо Aurora', price:129000, material:'gold', description:'Золото 585, матовая поверхность', image:'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-3e5},
-        {id:crypto.randomUUID(), name:'Серьги Halo', price:99000, material:'silver', description:'Серебро 925, покрытие родием', image:'https://images.unsplash.com/photo-1617038260897-3babb5a78775?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-2e5},
-        {id:crypto.randomUUID(), name:'Браслет Étoile', price:159000, material:'gold', description:'Ажурный браслет, золото 585', image:'https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-1e5},
-        {id:crypto.randomUUID(), name:'Кулон Lune', price:79000, material:'silver', description:'Серебро 925, минималистичный диск', image:'https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?q=80&w=1200&auto=format&fit=crop', createdAt: Date.now()-5e4}
-      ];
-      const current = loadProducts();
-      saveProducts(demo.concat(current));
-      renderProducts();
-      showToast('Добавлены примерные товары');
-      confetti(12);
-    }
-
-    // ===== Reveal on scroll =====
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('reveal-visible'); observer.unobserve(e.target); } })
-    }, {threshold:.15});
+    const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('reveal-visible'); observer.unobserve(e.target); } }) }, {threshold:.15});
     document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-    // ===== Tilt effect for cards =====
     function attachTiltCards(){
       document.querySelectorAll('.tilt').forEach(el=>{
         el.onmousemove = (e)=>{
@@ -771,57 +772,27 @@
         el.onmouseleave = ()=>{ el.style.transform='rotateX(0) rotateY(0)'; };
       });
     }
-
-    // ===== Button & chip ripple =====
     function attachRipples(){
-      const rippleTargets = [...document.querySelectorAll('.btn'), ...document.querySelectorAll('.chip')];
-      rippleTargets.forEach(el=>{
+      [...document.querySelectorAll('.btn'), ...document.querySelectorAll('.chip')].forEach(el=>{
         el.addEventListener('click', (e)=>{
-          const rect = el.getBoundingClientRect();
-          const d = Math.max(rect.width, rect.height);
-          const x = e.clientX - rect.left - d/2;
-          const y = e.clientY - rect.top - d/2;
-          const wave = document.createElement('span');
-          wave.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${d}px; height:${d}px; border-radius:50%; background:rgba(255,255,255,.35); transform:scale(0); pointer-events:none; mix-blend-mode:overlay;`;
-          el.style.position='relative';
-          el.style.overflow='hidden';
-          el.appendChild(wave);
-          wave.animate([{transform:'scale(0)', opacity:.6},{transform:'scale(2.2)', opacity:0}],{duration:500, easing:'ease-out'}).onfinish=()=>wave.remove();
+          const r = el.getBoundingClientRect();
+          const d = Math.max(r.width, r.height);
+          const w = document.createElement('span');
+          w.style.cssText = `position:absolute; left:${e.clientX - r.left - d/2}px; top:${e.clientY - r.top - d/2}px; width:${d}px; height:${d}px; border-radius:50%; background:rgba(255,255,255,.3); transform:scale(0); pointer-events:none;`;
+          el.style.position='relative'; el.style.overflow='hidden'; el.appendChild(w);
+          w.animate([{transform:'scale(0)', opacity:.6},{transform:'scale(2.5)', opacity:0}],{duration:500}).onfinish=()=>w.remove();
         });
       });
     }
-
-    // ===== Parallax hero image & toTop =====
-    const parallax = document.querySelector('.parallax');
+    
     window.addEventListener('scroll', ()=>{
-      const y = Math.min(30, window.scrollY/20);
-      parallax?.style.setProperty('transform', `translateY(${y}px)`);
-      if(window.scrollY>260) toTop.classList.add('visible'); else toTop.classList.remove('visible');
+      const p = document.querySelector('.parallax');
+      if(p) p.style.transform = `translateY(${Math.min(30, window.scrollY/20)}px)`;
+      toTop.classList.toggle('visible', window.scrollY>300);
     });
     toTop.addEventListener('click', ()=>window.scrollTo({top:0, behavior:'smooth'}));
 
-    // ===== Simple confetti =====
-    function confetti(n=10){
-      for(let i=0;i<n;i++){
-        const p = document.createElement('div');
-        p.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:-10px; width:6px; height:10px; background:hsl(${40+Math.random()*30} 70% 60%); border-radius:2px; transform:rotate(${Math.random()*180}deg); z-index:120;`;
-        document.body.appendChild(p);
-        const fall = p.animate([{transform:p.style.transform, top:'-10px', opacity:1},{transform:p.style.transform, top:'110vh', opacity:0}], {duration: 1000+Math.random()*1200, easing:'cubic-bezier(.2,.8,.2,1)'});
-        fall.onfinish = ()=>p.remove();
-      }
-    }
-
-    // ===== Cart open/close & clear =====
-    cartBtn.addEventListener('click', ()=>openCart(true));
-    closeCart.addEventListener('click', ()=>openCart(false));
-    clearCartBtn.addEventListener('click', ()=>{
-      const items = loadCart();
-      if(!items.length){ showToast('Корзина уже пустая'); return; }
-      if(confirm('Очистить корзину?')){ clearCart(); showToast('Корзина очищена'); }
-    });
-
-    // ===== First render =====
-    renderProducts();
+    fetchProducts();
     renderCart();
   </script>
 </body>
